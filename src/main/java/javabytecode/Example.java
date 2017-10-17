@@ -10,7 +10,8 @@ class Example {
         , IllegalAccessException
         , NoSuchMethodException
         , InvocationTargetException {
-        System.out.println("Hello world");
+        System.out.println();
+        System.out.println("Before Hello world");
         System.out.println();
 
         CustomClassLoader loader1 =
@@ -23,6 +24,8 @@ class Example {
             new CustomClassLoader(Example.class.getClassLoader());
         Class<?> clazz2 = loader2.loadClass("javabytecode.StaticAccessor");
         Object instance2 = clazz2.newInstance();
+        // this somehow does not work the same as the blog said
+        // https://analyzejava.wordpress.com/2014/09/25/java-classloader-namespaces/
         clazz2.getMethod("runMe").invoke(instance2);
     }
 }

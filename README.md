@@ -9,3 +9,5 @@ Class loader: ancient, not recommended
 Java Classloader series
 <https://analyzejava.wordpress.com/2014/09/25/java-classloader-what-is-a-classloader/>
 <https://analyzejava.wordpress.com/2014/09/25/java-classloader-write-your-own-classloader/>
+<https://analyzejava.wordpress.com/2014/09/25/java-classloader-namespaces/>
+<https://analyzejava.wordpress.com/2014/09/25/java-classloader-loading-a-custom-classloader-on-jvm-start/>
