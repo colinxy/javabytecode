@@ -11,6 +11,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 mainClassName = 'javabytecode.Example'
+// applicationDefaultJvmArgs = ["-D"]
 
 // In this section you declare where to find the dependencies of your project
 repositories {
