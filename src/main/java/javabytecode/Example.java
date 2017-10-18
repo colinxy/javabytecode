@@ -4,14 +4,32 @@ import java.lang.reflect.InvocationTargetException;
 
 
 class Example {
-    public static void main(String[] args)
+    public static void main(String[] args) {
+        try {
+            classloader();
+            System.out.println("\n*** End of class loader example\n");
+        } catch (Exception exc) {
+            System.out.println("*** Fail to run class loader example ***\n"
+                               + exc.getMessage());
+        }
+
+        try {
+            Bytecode.main();
+        } catch (Exception exc) {
+            System.out.println("*** Fail to run bytecode example ***\n"
+                               + exc.getMessage());
+        }
+    }
+
+    public static void classloader()
         throws ClassNotFoundException
         , InstantiationException
         , IllegalAccessException
         , NoSuchMethodException
         , InvocationTargetException {
+
         System.out.println();
-        System.out.println("Before Hello world");
+        System.out.println("*** Before starting class loader example");
         System.out.println();
 
         CustomClassLoader loader1 =
