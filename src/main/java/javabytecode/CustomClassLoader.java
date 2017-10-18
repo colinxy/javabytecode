@@ -86,10 +86,11 @@ public class CustomClassLoader extends ClassLoader {
     @Override
     public Class<?> loadClass(String name)
         throws ClassNotFoundException {
-        System.out.println("loading class '" + name + "'");
-        if (name.startsWith("javablogging.")) {
+        if (name.startsWith("javabytecode.")) {
+            System.out.println("loading class '" + name + "' with " + this);
             return getClass(name);
         }
+        System.out.println("loading class '" + name + "' with system class loader");
         return super.loadClass(name);
     }
 
