@@ -37,6 +37,9 @@ class Example {
         Class<?> clazz1 = loader1.loadClass("javabytecode.StaticAccessor");
         Object instance1 = clazz1.newInstance();
         clazz1.getMethod("runMe").invoke(instance1);
+        // loading class 'javabytecode.StaticAccessor'
+        // --- Starting runMe. Static value: null
+        // --- Finishing runMe. Static value: 4
 
         CustomClassLoader loader2 =
             new CustomClassLoader(Example.class.getClassLoader());
@@ -45,5 +48,11 @@ class Example {
         // this somehow does not work the same as the blog said
         // https://analyzejava.wordpress.com/2014/09/25/java-classloader-namespaces/
         clazz2.getMethod("runMe").invoke(instance2);
+        // loading class 'javabytecode.StaticAccessor'
+        // --- Starting runMe. Static value: 4
+        // --- Finishing runMe. Static value: 4
+
+        System.out.println("clazz1 == clazz2 is " + (clazz1 == clazz2));
+        // clazz1 == clazz2 is true
     }
 }
