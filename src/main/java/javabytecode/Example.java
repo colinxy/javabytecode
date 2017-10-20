@@ -15,10 +15,20 @@ class Example {
 
         try {
             Bytecode.main();
+            System.out.println("\n*** End of dynamic bytecode example\n");
         } catch (Exception exc) {
-            System.out.println("*** Fail to run bytecode example ***\n"
+            System.out.println("*** Fail to run dynamic bytecode example ***\n"
                                + exc.getMessage());
         }
+
+        try {
+            Bytecode.fields();
+            System.out.println("\n*** End of bytecode fields example\n");
+        } catch (Exception exc) {
+            System.out.println("*** Fail to run bytecode fields example ***\n"
+                               + exc.getMessage());
+        }
+
     }
 
     public static void classloader()

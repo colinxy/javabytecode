@@ -42,4 +42,22 @@ public class Bytecode {
 
         System.out.println(Arrays.toString(cc.getFields()));
     }
+
+    public static void fields(String... args) throws Exception {
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.get("RewriteMe1");
+
+        CtField[] fs = cc.getFields();
+        for (CtField f : fs) {
+            System.out.println(f.getName() + " " + f.getSignature());
+        }
+
+        // includes inherited methods
+        // CtMethod[] ms = cc.getMethods();
+        // only methods declared in this class
+        CtMethod[] ms = cc.getDeclaredMethods();
+        for (CtMethod m : ms) {
+            System.out.println(m.getName() + " " + m.getLongName());
+        }
+    }
 }
