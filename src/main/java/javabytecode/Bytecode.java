@@ -22,9 +22,32 @@ import java.nio.file.Paths;
 import javassist.bytecode.ConstPool;
 import java.util.List;
 import javassist.bytecode.FieldInfo;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Bytecode {
+    final static Map<Integer, String> bytecodeTable =
+        new HashMap<Integer, String>(){{
+            put(ConstPool.CONST_Class, "CONST_Class");
+            put(ConstPool.CONST_Double, "CONST_Double");
+            put(ConstPool.CONST_Fieldref, "CONST_Fieldref");
+            put(ConstPool.CONST_Float, "CONST_Float");
+            put(ConstPool.CONST_Integer, "CONST_Integer");
+            put(ConstPool.CONST_InterfaceMethodref, "CONST_InterfaceMethodref");
+            put(ConstPool.CONST_InvokeDynamic, "CONST_InvokeDynamic");
+            put(ConstPool.CONST_Long, "CONST_Long");
+            put(ConstPool.CONST_MethodHandle, "CONST_MethodHandle");
+            put(ConstPool.CONST_Methodref, "CONST_Methodref");
+            put(ConstPool.CONST_MethodType, "CONST_MethodType");
+            put(ConstPool.CONST_Methodref, "CONST_Methodref");
+            put(ConstPool.CONST_Module, "CONST_Module");
+            put(ConstPool.CONST_NameAndType, "CONST_NameAndType");
+            put(ConstPool.CONST_Package, "CONST_Package");
+            put(ConstPool.CONST_String, "CONST_String");
+            put(ConstPool.CONST_Utf8, "CONST_Utf8");
+        }};
+
     @SuppressWarnings("unchecked")
     private static <T> Class<T> generify(Class<?> cls) {
         return (Class<T>)cls;
@@ -86,12 +109,12 @@ public class Bytecode {
         ClassFile cf = new ClassFile(new DataInputStream(fin));
         ConstPool constPool = cf.getConstPool();
 
-        // cp.print();
+        // constPool.print();
         final int entries = constPool.getSize();
         // from 1 to (entries-1)
         for (int i = 1; i < entries; i++) {
             int tag = constPool.getTag(i);
-            System.out.println(tag);
+            System.out.println(bytecodeTable.get(tag));
         }
     }
 
