@@ -1,3 +1,5 @@
+package javabytecode;
+
 
 public class RewriteMe1 {
     public String f1 = "f1";

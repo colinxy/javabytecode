@@ -1,6 +1,14 @@
 package javabytecode;
 
 import java.io.*;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtField;
+import javassist.bytecode.ClassFile;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.MethodInfo;
+import javassist.bytecode.CodeIterator;
+import javassist.bytecode.Mnemonic;
 // import java.util.HashMap;
 
 
@@ -41,9 +49,9 @@ public class CustomClassLoader extends ClassLoader {
     private Class<?> getClass(String name)
         throws ClassNotFoundException {
         // We are getting a name that looks like
-        // javablogging.package.ClassToLoad
+        // javabytecode.package.ClassToLoad
         // and we have to convert it into the .class file name
-        // like javablogging/package/ClassToLoad.class
+        // like javabytecode/package/ClassToLoad.class
 
         // Class<?> cache = classes.get(name);
         // if (cache != null) {

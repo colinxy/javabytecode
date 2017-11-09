@@ -27,8 +27,21 @@ class Example {
         } catch (Exception exc) {
             System.out.println("*** Fail to run bytecode fields example ***\n"
                                + exc.getMessage());
+            exc.printStackTrace();
         }
 
+        try {
+            Bytecode.constantsPool();
+            System.out.println();
+            Bytecode.methodBytecode();
+            System.out.println("\n*** End of bytecode " +
+                               "constant pool example\n");
+        } catch (Exception exc) {
+            System.out.println("*** Fail to run bytecode "
+                               + "constants pool example ***\n"
+                               + exc.getMessage());
+            exc.printStackTrace();
+        }
     }
 
     public static void classloader()
