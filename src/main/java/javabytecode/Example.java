@@ -5,21 +5,21 @@ import java.lang.reflect.InvocationTargetException;
 
 class Example {
     public static void main(String[] args) {
-        try {
-            classloader();
-            System.out.println("\n*** End of class loader example\n");
-        } catch (Exception exc) {
-            System.out.println("*** Fail to run class loader example ***\n"
-                               + exc.getMessage());
-        }
+        // try {
+        //     classloader();
+        //     System.out.println("\n*** End of class loader example\n");
+        // } catch (Exception exc) {
+        //     System.out.println("*** Fail to run class loader example ***\n"
+        //                        + exc.getMessage());
+        // }
 
-        try {
-            Bytecode.main();
-            System.out.println("\n*** End of dynamic bytecode example\n");
-        } catch (Exception exc) {
-            System.out.println("*** Fail to run dynamic bytecode example ***\n"
-                               + exc.getMessage());
-        }
+        // try {
+        //     Bytecode.main();
+        //     System.out.println("\n*** End of dynamic bytecode example\n");
+        // } catch (Exception exc) {
+        //     System.out.println("*** Fail to run dynamic bytecode example ***\n"
+        //                        + exc.getMessage());
+        // }
 
         try {
             Bytecode.fields();
@@ -30,15 +30,38 @@ class Example {
             exc.printStackTrace();
         }
 
+        // try {
+        //     Bytecode.constantsPool();
+        //     System.out.println();
+        //     Bytecode.methodBytecode();
+        //     System.out.println("\n*** End of bytecode " +
+        //                        "constant pool example\n");
+        // } catch (Exception exc) {
+        //     System.out.println("*** Fail to run bytecode "
+        //                        + "constants pool example ***\n"
+        //                        + exc.getMessage());
+        //     exc.printStackTrace();
+        // }
+
+        // try {
+        //     Bytecode.constantPoolCopy();
+        //     System.out.println("\n*** End of const pool modification example\n");
+        // } catch (Exception exc) {
+        //     System.out.println("*** Fail to run const pool modification"
+        //                        + " example ***\n"
+        //                        + exc.getMessage());
+        //     exc.printStackTrace();
+        // }
+
         try {
-            Bytecode.constantsPool();
-            System.out.println();
-            Bytecode.methodBytecode();
-            System.out.println("\n*** End of bytecode " +
-                               "constant pool example\n");
+            System.out.println("--- Method Reference ---");
+            Bytecode.methodRef();
+            System.out.println("--- Field Reference ---");
+            Bytecode.fieldRef();
+            System.out.println("\n*** End of method/field reference example\n");
         } catch (Exception exc) {
-            System.out.println("*** Fail to run bytecode "
-                               + "constants pool example ***\n"
+            System.out.println("*** Fail to run const pool modification"
+                               + " example ***\n"
                                + exc.getMessage());
             exc.printStackTrace();
         }
