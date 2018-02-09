@@ -244,10 +244,9 @@ public class Bytecode {
 
         // System.out.println(Paths.get(".").toAbsolutePath().normalize());
 
-        InputStream fin = Bytecode.class.getClassLoader()
-            .getResourceAsStream(
-                className.replace('.', File.separatorChar) + ".class");
-        ClassFile cf = new ClassFile(new DataInputStream(fin));
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.get(className);
+        ClassFile cf = cc.getClassFile();
         ConstPool constPool = cf.getConstPool();
 
         // constPool.print();
@@ -262,10 +261,9 @@ public class Bytecode {
     public static void constantPoolCopy() throws Exception {
         final String className = "javabytecode.RewriteMe2";
 
-        InputStream fin = Bytecode.class.getClassLoader()
-            .getResourceAsStream(
-                className.replace('.', File.separatorChar) + ".class");
-        ClassFile cf = new ClassFile(new DataInputStream(fin));
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.get(className);
+        ClassFile cf = cc.getClassFile();
         ConstPool constPool = cf.getConstPool();
         constPool.print();
 
@@ -287,10 +285,9 @@ public class Bytecode {
     public static void methodBytecode() throws Exception {
         final String className = "javabytecode.RewriteMe2";
 
-        InputStream fin = Bytecode.class.getClassLoader()
-            .getResourceAsStream(
-                className.replace('.', File.separatorChar) + ".class");
-        ClassFile cf = new ClassFile(new DataInputStream(fin));
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.get(className);
+        ClassFile cf = cc.getClassFile();
 
         List<FieldInfo> fields = cf.getFields();
         for (FieldInfo finfo : fields) {
@@ -315,10 +312,9 @@ public class Bytecode {
     public static void methodRef() throws Exception {
         final String className = "javabytecode.RewriteMe2";
 
-        InputStream fin = Bytecode.class.getClassLoader()
-            .getResourceAsStream(
-                className.replace('.', File.separatorChar) + ".class");
-        ClassFile cf = new ClassFile(new DataInputStream(fin));
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.get(className);
+        ClassFile cf = cc.getClassFile();
         ConstPool constPool = cf.getConstPool();
         // constPool.print();
 
@@ -393,10 +389,9 @@ public class Bytecode {
     public static void fieldRef() throws Exception {
         final String className = "javabytecode.RewriteMe2";
 
-        InputStream fin = Bytecode.class.getClassLoader()
-            .getResourceAsStream(
-                className.replace('.', File.separatorChar) + ".class");
-        ClassFile cf = new ClassFile(new DataInputStream(fin));
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.get(className);
+        ClassFile cf = cc.getClassFile();
         ConstPool constPool = cf.getConstPool();
 
         List<FieldInfo> fields = cf.getFields();
@@ -421,5 +416,11 @@ public class Bytecode {
                 }
             }
         }
+    }
+
+    public static void findFieldRef(final String className,
+                                    final String method)
+        throws Exception {
+
     }
 }

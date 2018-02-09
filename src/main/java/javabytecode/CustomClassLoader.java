@@ -6,9 +6,11 @@ import javassist.CtClass;
 import javassist.CtField;
 import javassist.bytecode.ClassFile;
 import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.ConstPool;
 import javassist.bytecode.MethodInfo;
 import javassist.bytecode.CodeIterator;
 import javassist.bytecode.Mnemonic;
+import java.util.List;
 // import java.util.HashMap;
 
 
@@ -25,6 +27,8 @@ import javassist.bytecode.Mnemonic;
 public class CustomClassLoader extends ClassLoader {
     // HashMap<String, Class<?>> classes;
 
+    private ClassPool pool;
+
      /**
      * Parent ClassLoader passed to this constructor
      * will be used if this ClassLoader can not resolve a
@@ -36,9 +40,42 @@ public class CustomClassLoader extends ClassLoader {
     public CustomClassLoader(ClassLoader parent) {
         super(parent);
         // classes = new HashMap<>();
+
+        pool = ClassPool.getDefault();
     }
 
-     /**
+    public byte[] modifyIAdd(final String className) throws Exception {
+        CtClass cc = pool.get(className);
+        ClassFile cf =  cc.getClassFile();
+        ConstPool constPool = cf.getConstPool();
+
+        // List<FieldInfo> fields = cf.getFields();
+        List<MethodInfo> methods = cf.getMethods();
+
+        for (MethodInfo minfo : methods) {
+            // System.out.println("==> At method " + minfo.getName());
+            CodeAttribute ca = minfo.getCodeAttribute();
+            CodeIterator ci = ca.iterator();
+
+            while (ci.hasNext()) {
+                int index = ci.next();
+                int op = ci.byteAt(index);
+
+                switch (op) {
+                case 0x60:      // iadd
+                    ci.writeByte(0x64, index); // isub
+                    break;
+                case 0x64:      // isub
+                    ci.writeByte(0x60, index); // iadd
+                    break;
+                }
+            }
+        }
+
+        return cc.toBytecode();
+    }
+
+    /**
      * Loads a given class from .class file just like
      * the default ClassLoader. This method could be
      * changed to load the class over network from some
@@ -62,8 +99,14 @@ public class CustomClassLoader extends ClassLoader {
         String file = name
             .replace('.', File.separatorChar)
             + ".class";
-        byte[] b = null;
         try {
+
+            if (name.contains("RewriteMe")) {
+                byte[] b = modifyIAdd(name);
+                return defineClass(name, b, 0, b.length);
+            }
+
+            byte[] b = null;
             // This loads the byte code data from the file
             System.out.println("*** Loading " + name + " from " + file);
             b = loadClassData(file);
@@ -71,10 +114,9 @@ public class CustomClassLoader extends ClassLoader {
             // and converts the byte array into a Class
             Class<?> c = defineClass(name, b, 0, b.length);
             resolveClass(c);
-
             // classes.put(name, c);
             return c;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

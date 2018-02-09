@@ -65,6 +65,8 @@ class Example {
                                + exc.getMessage());
             exc.printStackTrace();
         }
+
+        System.out.println(new RewriteMe2().arith());
     }
 
     public static void classloader()
